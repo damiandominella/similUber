@@ -158,6 +158,13 @@ if (!$is_customer) {
             <?php if (!$is_customer && mysqli_num_rows($cars_result) > 0) { ?>
                 <div class="form-wrapper">
                     <div class="form-title">Mezzi in possesso:</div>
+                    <?php if ($errors && array_key_exists('delete_car', $errors) && $errors['delete_car']) { ?>
+                        <p class="alert alert-danger">C'è stato un errore durante l'eliminazione, riprovare più tardi</p>
+                    <?php } ?>
+
+                    <?php if ($confirmations && array_key_exists('delete_car', $confirmations) && $confirmations['delete_car']) { ?>
+                        <p class="alert alert-success">Eliminato con successo!</p>
+                    <?php } ?>
                     <table class="table table-striped">
                         <thead>
                         <tr>
@@ -167,6 +174,7 @@ if (!$is_customer) {
                             <th>Posti</th>
                             <th>Bagagli</th>
                             <th>Animali</th>
+                            <th>Elimina</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -179,6 +187,7 @@ if (!$is_customer) {
                                 <td><?php echo $car['num_posti'] ? $car['num_posti'] : 0; ?></td>
                                 <td><?php echo $car['num_bagagli'] ? $car['num_bagagli'] : 0; ?></td>
                                 <td><?php echo $car['animali'] ? 'Si' : 'No'; ?></td>
+                                <td><a href="../controllers/delete-car.php?id_user=<?php echo $user->id; ?>&id_car=<?php echo $car['id_mezzo'];?>" class="btn btn-sm btn-danger">Elimina</a></td>
                             </tr>
                         <?php } ?>
                         </tbody>
