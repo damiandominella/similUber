@@ -43,6 +43,12 @@ if (!$is_customer) {
     $cars_result = mysqli_query($db_connection, $cars_sql);
 }
 
+// Get user discounts
+if ($is_customer) {
+    $discounts_sql = "SELECT * FROM sconto s LEFT JOIN accedere a ON a.id_sconto = s.id WHERE a.id_cliente = " . (int)$user->id;
+    $discounts_result = mysqli_query($db_connection, $discounts_sql);
+}
+
 
 ?>
 
@@ -150,14 +156,13 @@ if (!$is_customer) {
                             </tr>
                         <?php } ?>
                         </tbody>
-
                     </table>
                 </div>
             <?php } ?>
             <br/><br/>
             <?php if (!$is_customer && mysqli_num_rows($cars_result) > 0) { ?>
                 <div class="form-wrapper">
-                    <div class="form-title">Mezzi in possesso:</div>
+                    <h4 class="form-title">Mezzi in possesso:</h4>
                     <?php if ($errors && array_key_exists('delete_car', $errors) && $errors['delete_car']) { ?>
                         <p class="alert alert-danger">C'è stato un errore durante l'eliminazione, riprovare più tardi</p>
                     <?php } ?>
@@ -194,6 +199,28 @@ if (!$is_customer) {
 
                     </table>
                     <a href="add_car.php?id_user=<?php echo $user->id; ?>" class="btn btn-success">Aggiungi</a>
+                </div>
+            <?php } ?>
+            <?php if ($is_customer && mysqli_num_rows($discounts_result) > 0) { ?>
+                <div class="form-wrapper">
+                    <h4 class="form-title">Sconti utilizzabili:</h4>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Codice sconto</th>
+                            <th>Valore</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        while ($discount = $discounts_result->fetch_assoc()) { ?>
+                            <tr>
+                                <td><?php echo $discount['codice']; ?></td>
+                                <td><?php echo $discount['valore']; ?> %</td>
+                            </tr>
+                        <?php } ?>
+                        </tbody>
+                    </table>
                 </div>
             <?php } ?>
         </div>
