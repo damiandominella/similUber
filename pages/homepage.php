@@ -114,7 +114,7 @@ if ($is_customer) {
                     </div>
                     <div class="form-group">
                         <label for="email">Email *</label>
-                        <input name="email" type="email" class="form-control" id="email" required
+                        <input name="email" type="email" class="form-control" id="email" required disabled
                                value="<?php echo $user->email; ?>">
                     </div>
                     <div class="form-group">
@@ -138,7 +138,7 @@ if ($is_customer) {
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <?php if (mysqli_num_rows($reservations_result) > 0) { ?>
                 <div class="form-wrapper">
-                    <h4 class="form-title">Prenotazioni effettuate:</h4>
+                    <h4 class="form-title"><?php echo $is_customer ? 'Prenotazioni effettuate' : 'Prenotazioni ricevute'; ?>:</h4>
                     <table class="table table-striped">
                         <thead>
                         <tr>
