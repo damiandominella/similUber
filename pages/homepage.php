@@ -67,10 +67,19 @@ if (!$is_customer) {
     <h3 class="text-center"><?php echo $user->nome . ' ' . $user->cognome; ?></h3>
     <h5 class="text-center"><?php echo $is_customer ? 'Cliente' : 'Conducente' ?></h5>
     <h5 class="text-center">Punteggio medio: <?php echo $user->feedback ? $user->feedback : 0 ?> / 5</h5>
-    <a href="logout.php">Logout</a>
     <br/>
+
     <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <?php if ($errors && array_key_exists('delete', $errors) && $errors['delete']) { ?>
+                <p class="alert alert-danger">C'è stato un errore durante l'eliminazione dei dati, riprovare più
+                    tardi</p>
+            <?php } ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <div class="form-wrapper">
                 <h4 class="form-title">Dati personali:</h4>
                 <?php if ($errors && array_key_exists('update', $errors) && $errors['update']) { ?>
@@ -116,7 +125,7 @@ if (!$is_customer) {
                 </form>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <?php if (mysqli_num_rows($reservations_result) > 0) { ?>
                 <div class="form-wrapper">
                     <h4 class="form-title">Prenotazioni effettuate:</h4>
@@ -142,7 +151,7 @@ if (!$is_customer) {
                 </div>
             <?php } ?>
             <br/><br/>
-            <?php if (!$is_customer) { ?>
+            <?php if (!$is_customer && mysqli_num_rows($cars_result) > 0) { ?>
                 <div class="form-wrapper">
                     <h4 class="form-title">Mezzi in possesso:</h4>
                     <table class="table table-striped">
@@ -173,6 +182,14 @@ if (!$is_customer) {
                     </table>
                 </div>
             <?php } ?>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+            <a class="btn btn-warning" href="logout.php">Logout</a>
+            <a href="../controllers/delete-customer.php?id=<?php echo $user->id; ?>" class="btn btn-danger">Elimina
+                account</a>
         </div>
     </div>
 

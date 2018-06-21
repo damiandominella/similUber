@@ -29,7 +29,7 @@ $confirmations = isset($_GET['confirmations']) ? $_GET['confirmations'] : array(
     <h1 class="text-center">UBER</h1>
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-md-push-3 col-lg-6 col-lg-push-3">
             <div class="form-wrapper">
 
                 <?php if ($errors && array_key_exists('bad_credentials', $errors) && $errors['bad_credentials']) { ?>

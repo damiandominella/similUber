@@ -27,7 +27,7 @@ $errors = isset($_GET['errors']) ? $_GET['errors'] : array();
     <h4 class="text-center">Registrati</h4>
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-md-push-3 col-lg-6 col-lg-push-3">
             <div class="form-wrapper">
 
                 <?php if ($errors && array_key_exists('email_already_exists', $errors) && $errors['email_already_exists']) { ?>
