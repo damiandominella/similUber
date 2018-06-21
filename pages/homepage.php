@@ -75,6 +75,10 @@ if (!$is_customer) {
                 <p class="alert alert-danger">C'è stato un errore durante l'eliminazione dei dati, riprovare più
                     tardi</p>
             <?php } ?>
+            <?php if ($errors && array_key_exists('generic', $errors) && $errors['generic']) { ?>
+                <p class="alert alert-danger">C'è stato un errore, riprovare più
+                    tardi</p>
+            <?php } ?>
         </div>
     </div>
 
@@ -153,7 +157,7 @@ if (!$is_customer) {
             <br/><br/>
             <?php if (!$is_customer && mysqli_num_rows($cars_result) > 0) { ?>
                 <div class="form-wrapper">
-                    <h4 class="form-title">Mezzi in possesso:</h4>
+                    <div class="form-title">Mezzi in possesso:</div>
                     <table class="table table-striped">
                         <thead>
                         <tr>
@@ -180,6 +184,7 @@ if (!$is_customer) {
                         </tbody>
 
                     </table>
+                    <a href="add_car.php?id_user=<?php echo $user->id; ?>" class="btn btn-success">Aggiungi</a>
                 </div>
             <?php } ?>
         </div>
